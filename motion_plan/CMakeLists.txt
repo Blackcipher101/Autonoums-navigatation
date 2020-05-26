@@ -10,6 +10,7 @@ project(motion_plan)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   rospy
+  cv_bridge
   sensor_msgs
   std_msgs
   nav_msgs
@@ -107,7 +108,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES motion_plan
-#  CATKIN_DEPENDS nav_msgs geometry_msgs rospy sensor_msgs std_msgs
+#  CATKIN_DEPENDS nav_msgs geometry_msgs cv_bridge rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
 )
 

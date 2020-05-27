@@ -39,11 +39,11 @@ products. Being a BSD-licensed product, OpenCV makes it easy for businesses to u
 
 #### Introduction 
 To setup this project first setup a ROS package(<a href="http://wiki.ros.org/ROS/Tutorials/BuildingPackages">tutrioal</a>)
-<p>Then clone the repo in the /src folder and build excutables using 
+Then clone the repo in the /src folder and build excutables using 
 ```
 catkin_make
 ```
-Get the <a href="">simulaltation</a> up and running</p>
+Get the <a href="">simulaltation</a> up and running
 
 Now run it
 

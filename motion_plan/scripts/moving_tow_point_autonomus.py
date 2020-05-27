@@ -2,6 +2,7 @@
 import rospy
 import math
 import cv2
+import socket
 from nav_msgs.msg import Odometry
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import LaserScan, Image
@@ -11,7 +12,10 @@ bridge = CvBridge()
 flag=1
 regions={}
 angular_z=0
-backSub = cv2.createBackgroundSubtractorMOG2()
+#backSub = cv2.createBackgroundSubtractorMOG2()
+Received=0
+move_to_x=7
+move_to_y=7
 def image_callback(msg):
     global c
 
@@ -27,14 +31,14 @@ def image_callback(msg):
         # Save your OpenCV2 image as a jpeg
         if cv2_img is None:
             exit()
-        fgMask = backSub.apply(cv2_img)
+        #fgMask = backSub.apply(cv2_img)
 
 
         cv2.rectangle(cv2_img, (10, 2), (100,20), (255,255,255), -1)
 
 
         cv2.imshow('Frame', cv2_img)
-        cv2.imshow('FG Mask', fgMask)
+        #cv2.imshow('FG Mask', fgMask)
         keyboard = cv2.waitKey(30)
 def clbk_laser(msg):
     global regions
@@ -51,8 +55,8 @@ def clbk_dis(msg):
     x=msg.pose.pose.position.x
     y=msg.pose.pose.position.y
     z_orenitation=msg.pose.pose.orientation.z
-    move_to_x=7
-    move_to_y=7
+    global move_to_x
+    global move_to_y
     b=math.sqrt((move_to_x-x)**2+(move_to_y-y)**2)
     a=((move_to_y-y)/(move_to_x-x))
     #print('intan:',a)
@@ -110,9 +114,26 @@ def take_action(angle,z_orenitation,b):
 
 def main():
     global pub
-
+    global Received
+    global move_to_x
+    global move_to_y
     rospy.init_node('reading_laser')
-
+    count=0
+    while Received==0:
+    	try:
+    		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    		s.connect((socket.gethostname(), 1234))
+    	except socket.error:
+    		if count%5000==0:
+    			print('waiting..')
+    		count+=1
+    	else:
+    		cords = s.recv(1024)
+    		cords=cords.decode("utf-8")
+    		Received=1
+    move_to_x=int(cords[2])
+    move_to_y=int(cords[6])
+    print move_to_x," ",move_to_y
     pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     image_topic = "/rrbot/camera1/image_raw"
     rospy.Subscriber(image_topic, Image, image_callback)

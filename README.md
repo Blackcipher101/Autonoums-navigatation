@@ -54,9 +54,22 @@ x:your_x_coordinate y:your_y_coordinate
 ```
 Voila!!! Your robot moves to the specified postions navigating the obsatcles and planning the optimal path
 
-# ScrernShots coming Soon
+# ScreenShots
+#### Website
+<img src="images/website.png">
 
 
+#### Entering co-ordinates
+<img src="images/co-ordinate.png">
+
+#### Start-of-robot
+<img src="images/Start-of-robot.png">
+
+#### Navigatating obstacles
+<img src="images/Navigatating.png">
+
+#### Reaching destination
+<img src="images/destination.png">
 
 
 

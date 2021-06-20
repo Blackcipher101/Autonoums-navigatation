@@ -17,7 +17,7 @@ I was starting from scratch as I had no experience in ROS so I started with the 
 
 And the other thing was when I built it was taking a longer path so I optimized it using the A* algorithm that is attaching a heuristic function to it 
 reference: <a href="https://www.sciencepubco.com/index.php/ijet/article/download/10067/3572">paper</a>
-##### After optimiztation
+##### Before optimiztation
 
 https://user-images.githubusercontent.com/33775493/122667882-e3326480-d1d2-11eb-9e35-81d18961b292.mp4
 
